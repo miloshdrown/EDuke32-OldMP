@@ -1,0 +1,189 @@
+
+# DEFINES
+
+# Use colored output
+PRETTY_OUTPUT = 1
+
+# Tools
+CLANG?=0
+CC=gcc
+CXX=g++
+AS=nasm
+AR=ar
+RC=windres
+RANLIB=ranlib
+STRIP=strip
+
+ifneq (0,$(CLANG))
+    CC=clang -std=gnu89
+    CXX=clang
+#    AR=llvm-ar
+#    RANLIB=llvm-ranlib
+endif
+
+# GCC version, for conditional selection of flags.
+GCC_MAJOR    := $(shell $(CC) -dumpversion 2>&1 | cut -d'.' -f1)
+GCC_MINOR    := $(shell $(CC) -dumpversion 2>&1 | cut -d'.' -f2)
+
+# Detect machine architecture
+SYSARCH?=$(strip $(shell uname -m))
+
+# Detect the platform if it wasn't explicitly given to us from
+# the outside world. This allows cross-compilation by overriding
+# CC and giving us PLATFORM specifically.
+#
+ifndef PLATFORM
+    uname=$(strip $(shell uname -s))
+    PLATFORM=UNKNOWN
+    ifeq ($(findstring Linux,$(uname)),Linux)
+        PLATFORM=LINUX
+    endif
+    ifeq ($(findstring BSD,$(uname)),BSD)
+        PLATFORM=BSD
+    endif
+    ifeq ($(findstring MINGW,$(uname)),MINGW)
+        PLATFORM=WINDOWS
+    endif
+    ifeq ($(findstring Darwin,$(uname)),Darwin)
+        PLATFORM=DARWIN
+    endif
+    ifeq ($(findstring BeOS,$(uname)),BeOS)
+        PLATFORM=BEOS
+    endif
+    ifeq ($(findstring skyos,$(uname)),skyos)
+        PLATFORM=SKYOS
+    endif
+    ifeq ($(findstring QNX,$(uname)),QNX)
+        PLATFORM=QNX
+    endif
+    ifeq ($(findstring SunOS,$(uname)),SunOS)
+        PLATFORM=SUNOS
+    endif
+    ifeq ($(findstring syllable,$(uname)),syllable)
+        PLATFORM=SYLLABLE
+    endif
+endif
+
+
+# Engine options - these may be overridden by game makefiles
+#  SUPERBUILD     - enables voxels
+#  POLYMOST       - enables Polymost renderer
+#  USE_OPENGL     - enables OpenGL support in Polymost
+#  NOASM          - disables the use of inline assembly pragmas
+#  LINKED_GTK     - enables compile-time linkage to GTK
+#  RANCID_NETWORKING - enable network backend from rancidmeat port
+#
+
+SUPERBUILD ?= 1
+POLYMOST ?= 1		
+POLYMER ?= 0
+USE_OPENGL ?= 1
+NOASM ?= 0
+LINKED_GTK ?= 0
+BUILD32_ON_64 ?= 0
+RANCID_NETWORKING ?= 0
+
+# Debugging/Build options
+#  RELEASE - 1 = no debugging
+#  EFENCE  - 1 = compile with Electric Fence for malloc() debugging
+#  OPTLEVEL	- 0..3 = GCC optimization strategy 
+#
+RELEASE?=1
+EFENCE?=0
+OPTLEVEL	?= 2
+LTO?=1
+
+ifeq (1,$(strip $(shell expr $(GCC_MAJOR) \>= 4)))
+    F_NO_STACK_PROTECTOR := -fno-stack-protector
+    # there are some link-time issues with stack protectors, so make it possible to override
+    F_STACK_PROTECTOR_ALL ?= -fstack-protector-all
+    ifeq (0,$(CLANG))
+        F_JUMP_TABLES := -fjump-tables
+    endif
+    M_TUNE_GENERIC := -mtune=generic
+    M_STACKREALIGN := -mstackrealign
+    W_STRICT_OVERFLOW := -Wstrict-overflow=1
+endif
+
+ifeq ($(PLATFORM),DARWIN)
+    DARWINVERSION?=$(strip $(shell uname -r | cut -d . -f 1))
+    ifeq (1,$(strip $(shell expr $(DARWINVERSION) \< 10)))
+        DARWIN9 ?= 1
+    endif
+
+#    BASECFLAGS    += -fno-leading-underscore
+
+    ifeq (1,$(DARWIN9))
+        F_JUMP_TABLES :=
+        W_STRICT_OVERFLOW :=
+    endif
+
+    ifeq (1,$(BUILD32_ON_64))
+        BASECFLAGS += $(F_NO_STACK_PROTECTOR)
+    else
+        ifeq ($(findstring ppc,$(ARCH)),ppc)
+            BASECFLAGS += $(F_NO_STACK_PROTECTOR)
+        endif
+    endif
+endif
+
+ifndef OPTOPT
+    ifeq ($(PLATFORM), WII)
+        OPTOPT=
+    else
+        OPTOPTARCH=$(ARCH)
+        ifeq (,$(OPTOPTARCH))
+            OPTOPTARCH=$(SYSARCH)
+        endif
+
+        ifeq (i686,$(findstring i686, $(OPTOPTARCH)))
+            OPTOPT=-march=pentium3 $(M_TUNE_GENERIC) -mmmx -msse -msse2 -mfpmath=sse,387
+            # -malign-double $(M_STACKREALIGN)
+        else
+            OPTOPT=
+        endif
+    endif
+
+    ifneq (,$(CUSTOMOPT))
+        OPTOPT+= $(CUSTOMOPT)
+    endif
+endif
+
+
+# compiler flags etc.
+BASECONLYFLAGS=-Wimplicit
+BASECXXFLAGS= -fno-exceptions -fno-rtti
+BASEASFLAGS=-s #-g
+BASELDFLAGS=
+
+ifneq (0,$(RELEASE))
+	# Debugging disabled
+    debug=-ggdb -fomit-frame-pointer -funswitch-loops -O$(OPTLEVEL)
+
+    ifneq (0,$(LTO))
+        BASELDFLAGS+= -flto
+        debug+= -DUSING_LTO -flto
+    endif
+    ifneq (,$(CUSTOMOPT))
+        debug+= $(CUSTOMOPT)
+    endif
+else
+	# Debugging enabled
+    debug=-ggdb -O0 -DDEBUGGINGAIDS
+endif
+
+BASECFLAGS=$(debug) $(OPTOPT) -W -Wall -funsigned-char -fno-strict-aliasing \
+		-Werror-implicit-function-declaration -DNO_GCC_BUILTINS -DNOCOPYPROTECT -D_FORTIFY_SOURCE=2
+
+BASELDFLAGS+= $(OPTOPT)
+
+# Misc. stuff that is constant between Makefiles
+EROOT:=build
+
+# will be potentially overridden in build/Makefile.shared
+EXESUFFIX=
+
+ifneq (0,$(EFENCE))
+    LIBS+= -lefence
+    BASECFLAGS+= -DEFENCE
+endif
