@@ -17,7 +17,7 @@ o=o
 JAUDIOLIBDIR=$(SRC)/jaudiolib
 JAUDIOLIB=libjfaudiolib.a
 
-LIBS=-lm
+LIBS=-lm -ldl
 
 include $(EROOT)/Makefile.shared
 
