@@ -35,7 +35,7 @@ static void _internal_onshowosd(int);
 // history display
 static char osdtext[TEXTSIZE];
 static char osdfmt[TEXTSIZE];
-static char osdversionstring[32];
+static char osdversionstring[64];
 static int  osdversionstringlen;
 static int  osdversionstringshade;
 static int  osdversionstringpal;
@@ -1776,7 +1776,7 @@ void OSD_SetVersionString(const char *version, int shade, int pal)
 {
 //    if (!osdinited) OSD_Init();
 
-    Bstrcpy(osdversionstring,version);
+    Bstrncpyz(osdversionstring, version, 64);
     osdversionstringlen = Bstrlen(osdversionstring);
     osdversionstringshade = shade;
     osdversionstringpal = pal;

@@ -1,49 +1,57 @@
 # Build Engine dependencies
 #
-$(OBJ)/a-c.$o: $(SRC)/a-c.c $(INC)/a.h
-$(OBJ)/a.$o: $(SRC)/a.$(asm)
-$(OBJ)/baselayer.$o: $(SRC)/baselayer.c $(INC)/compat.h $(INC)/baselayer.h $(INC)/build.h $(INC)/osd.h
-$(OBJ)/build.$o: $(SRC)/build.c $(INC)/build.h $(INC)/pragmas.h $(INC)/compat.h $(INC)/baselayer.h $(INC)/editor.h
-$(OBJ)/cache1d.$o: $(SRC)/cache1d.c $(INC)/compat.h $(INC)/cache1d.h $(INC)/pragmas.h $(INC)/baselayer.h
-$(OBJ)/compat.$o: $(SRC)/compat.c $(INC)/compat.h
-$(OBJ)/config.$o: $(SRC)/config.c $(INC)/compat.h $(INC)/osd.h $(INC)/editor.h
-$(OBJ)/crc32.$o: $(SRC)/crc32.c $(INC)/crc32.h
-$(OBJ)/defs.$o: $(SRC)/defs.c $(INC)/build.h $(INC)/baselayer.h $(INC)/scriptfile.h $(INC)/compat.h
-$(OBJ)/engine.$o: $(SRC)/engine.c $(INC)/compat.h $(INC)/build.h $(INC)/pragmas.h $(INC)/cache1d.h $(INC)/a.h $(INC)/osd.h $(INC)/baselayer.h $(SRC)/engine_priv.h $(INC)/polymost.h $(INC)/hightile.h $(INC)/mdsprite.h $(INC)/polymer.h
-$(OBJ)/polymost.$o: $(SRC)/polymost.c $(INC)/md4.h $(INC)/lzf.h $(INC)/lzwnew.h $(SRC)/engine_priv.h $(INC)/polymost.h $(INC)/hightile.h $(INC)/mdsprite.h
-$(OBJ)/hightile.$o: $(SRC)/hightile.c $(INC)/kplib.h $(INC)/hightile.h
-$(OBJ)/mdsprite.$o: $(SRC)/mdsprite.c $(SRC)/engine_priv.h $(INC)/polymost.h $(INC)/hightile.h $(INC)/mdsprite.h
-$(OBJ)/textfont.$o: $(SRC)/textfont.c
-$(OBJ)/smalltextfont.$o: $(SRC)/smalltextfont.c
-$(OBJ)/glbuild.$o: $(SRC)/glbuild.c $(INC)/glbuild.h $(INC)/baselayer.h
-$(OBJ)/kplib.$o: $(SRC)/kplib.c $(INC)/compat.h
-$(OBJ)/lzf_c.$o: $(SRC)/lzf_c.c $(SRC)/lzfP.h
-$(OBJ)/lzf_d.$o: $(SRC)/lzf_d.c $(SRC)/lzfP.h
-$(OBJ)/lzwnew.$o: $(SRC)/lzwnew.c
-$(OBJ)/md4.$o: $(SRC)/md4.c $(INC)/md4.h $(INC)/compat.h
-$(OBJ)/mmulti_null.$o: $(SRC)/mmulti_null.c $(INC)/mmulti.h
-$(OBJ)/mmulti.$o: $(SRC)/mmulti.c $(INC)/mmulti.h
-# $(OBJ)/enet_mmulti.$o: $(SRC)/enet_mmulti.cpp $(INC)/enet_mmulti.h
-$(OBJ)/mmulti_unstable.$o: $(SRC)/mmulti_unstable.c $(INC)/mmulti_unstable.h
-$(OBJ)/osd.$o: $(SRC)/osd.c $(INC)/build.h $(INC)/osd.h $(INC)/compat.h $(INC)/baselayer.h
-$(OBJ)/pragmas.$o: $(SRC)/pragmas.c $(INC)/compat.h
-$(OBJ)/scriptfile.$o: $(SRC)/scriptfile.c $(INC)/scriptfile.h $(INC)/cache1d.h $(INC)/compat.h
-$(OBJ)/sdlayer.$o: $(SRC)/sdlayer.c $(INC)/compat.h $(INC)/sdlayer.h $(INC)/baselayer.h $(INC)/cache1d.h $(INC)/pragmas.h $(INC)/a.h $(INC)/build.h $(INC)/osd.h $(INC)/glbuild.h
-$(OBJ)/winlayer.$o: $(SRC)/winlayer.c $(INC)/compat.h $(INC)/winlayer.h $(INC)/baselayer.h $(INC)/pragmas.h $(INC)/build.h $(INC)/a.h $(INC)/osd.h $(INC)/dxdidf.h $(INC)/glbuild.h
-$(OBJ)/gtkbits.$o: $(SRC)/gtkbits.c $(INC)/baselayer.h $(INC)/build.h $(INC)/dynamicgtk.h
-$(OBJ)/dynamicgtk.$o: $(SRC)/dynamicgtk.c $(INC)/dynamicgtk.h
-$(OBJ)/polymer.$o: $(SRC)/polymer.c $(INC)/polymer.h $(INC)/compat.h $(INC)/build.h $(INC)/glbuild.h $(INC)/osd.h $(INC)/pragmas.h $(INC)/mdsprite.h
+$(ENGINE_OBJ)/a-c.$o: $(ENGINE_SRC)/a-c.c $(ENGINE_INC)/a.h
+$(ENGINE_OBJ)/a.$o: $(ENGINE_SRC)/a.$(asm)
+$(ENGINE_OBJ)/baselayer.$o: $(ENGINE_SRC)/baselayer.c $(ENGINE_INC)/compat.h $(ENGINE_INC)/baselayer.h $(ENGINE_INC)/build.h $(ENGINE_INC)/osd.h
+$(ENGINE_OBJ)/build.$o: $(ENGINE_SRC)/build.c $(ENGINE_INC)/build.h $(ENGINE_INC)/pragmas.h $(ENGINE_INC)/compat.h $(ENGINE_INC)/baselayer.h $(ENGINE_INC)/editor.h
+$(ENGINE_OBJ)/cache1d.$o: $(ENGINE_SRC)/cache1d.c $(ENGINE_INC)/compat.h $(ENGINE_INC)/cache1d.h $(ENGINE_INC)/pragmas.h $(ENGINE_INC)/baselayer.h
+$(ENGINE_OBJ)/compat.$o: $(ENGINE_SRC)/compat.c $(ENGINE_INC)/compat.h
+$(ENGINE_OBJ)/config.$o: $(ENGINE_SRC)/config.c $(ENGINE_INC)/compat.h $(ENGINE_INC)/osd.h $(ENGINE_INC)/editor.h
+$(ENGINE_OBJ)/crc32.$o: $(ENGINE_SRC)/crc32.c $(ENGINE_INC)/crc32.h
+$(ENGINE_OBJ)/defs.$o: $(ENGINE_SRC)/defs.c $(ENGINE_INC)/build.h $(ENGINE_INC)/baselayer.h $(ENGINE_INC)/scriptfile.h $(ENGINE_INC)/compat.h
+$(ENGINE_OBJ)/engine.$o: $(ENGINE_SRC)/engine.c $(ENGINE_INC)/compat.h $(ENGINE_INC)/build.h $(ENGINE_INC)/pragmas.h $(ENGINE_INC)/cache1d.h $(ENGINE_INC)/a.h $(ENGINE_INC)/osd.h $(ENGINE_INC)/baselayer.h $(ENGINE_SRC)/engine_priv.h $(ENGINE_INC)/polymost.h $(ENGINE_INC)/hightile.h $(ENGINE_INC)/mdsprite.h $(ENGINE_INC)/polymer.h
+$(ENGINE_OBJ)/polymost.$o: $(ENGINE_SRC)/polymost.c $(ENGINE_INC)/lzwnew.h $(ENGINE_INC)/compat.h $(ENGINE_INC)/build.h $(ENGINE_SRC)/engine_priv.h $(ENGINE_INC)/polymost.h $(ENGINE_INC)/hightile.h $(ENGINE_INC)/mdsprite.h
+$(ENGINE_OBJ)/hightile.$o: $(ENGINE_SRC)/hightile.c $(ENGINE_INC)/kplib.h $(ENGINE_INC)/hightile.h
+$(ENGINE_OBJ)/mdsprite.$o: $(ENGINE_SRC)/mdsprite.c $(ENGINE_SRC)/engine_priv.h $(ENGINE_INC)/polymost.h $(ENGINE_INC)/hightile.h $(ENGINE_INC)/mdsprite.h
+$(ENGINE_OBJ)/textfont.$o: $(ENGINE_SRC)/textfont.c
+$(ENGINE_OBJ)/smalltextfont.$o: $(ENGINE_SRC)/smalltextfont.c
+$(ENGINE_OBJ)/glbuild.$o: $(ENGINE_SRC)/glbuild.c $(ENGINE_INC)/glbuild.h $(ENGINE_INC)/baselayer.h
+$(ENGINE_OBJ)/kplib.$o: $(ENGINE_SRC)/kplib.c $(ENGINE_INC)/compat.h
+$(ENGINE_OBJ)/lzwnew.$o: $(ENGINE_SRC)/lzwnew.c
+$(ENGINE_OBJ)/osd.$o: $(ENGINE_SRC)/osd.c $(ENGINE_INC)/build.h $(ENGINE_INC)/osd.h $(ENGINE_INC)/compat.h $(ENGINE_INC)/baselayer.h
+$(ENGINE_OBJ)/pragmas.$o: $(ENGINE_SRC)/pragmas.c $(ENGINE_INC)/compat.h
+$(ENGINE_OBJ)/scriptfile.$o: $(ENGINE_SRC)/scriptfile.c $(ENGINE_INC)/scriptfile.h $(ENGINE_INC)/cache1d.h $(ENGINE_INC)/compat.h
+$(ENGINE_OBJ)/sdlayer.$o: $(ENGINE_SRC)/sdlayer.c $(ENGINE_INC)/compat.h $(ENGINE_INC)/sdlayer.h $(ENGINE_INC)/baselayer.h $(ENGINE_INC)/cache1d.h $(ENGINE_INC)/pragmas.h $(ENGINE_INC)/a.h $(ENGINE_INC)/build.h $(ENGINE_INC)/osd.h $(ENGINE_INC)/glbuild.h
+$(ENGINE_OBJ)/winlayer.$o: $(ENGINE_SRC)/winlayer.c $(ENGINE_INC)/compat.h $(ENGINE_INC)/winlayer.h $(ENGINE_INC)/baselayer.h $(ENGINE_INC)/pragmas.h $(ENGINE_INC)/build.h $(ENGINE_INC)/a.h $(ENGINE_INC)/osd.h $(ENGINE_INC)/dxdidf.h $(ENGINE_INC)/glbuild.h
+$(ENGINE_OBJ)/gtkbits.$o: $(ENGINE_SRC)/gtkbits.c $(ENGINE_INC)/baselayer.h $(ENGINE_INC)/build.h $(ENGINE_INC)/dynamicgtk.h
+$(ENGINE_OBJ)/dynamicgtk.$o: $(ENGINE_SRC)/dynamicgtk.c $(ENGINE_INC)/dynamicgtk.h
+$(ENGINE_OBJ)/polymer.$o: $(ENGINE_SRC)/polymer.c $(ENGINE_INC)/polymer.h $(ENGINE_INC)/compat.h $(ENGINE_INC)/build.h $(ENGINE_INC)/glbuild.h $(ENGINE_INC)/osd.h $(ENGINE_INC)/pragmas.h $(ENGINE_INC)/mdsprite.h $(ENGINE_INC)/polymost.h
+$(ENGINE_OBJ)/mutex.$o: $(ENGINE_SRC)/mutex.c $(ENGINE_INC)/mutex.h
+$(ENGINE_OBJ)/crc32.$o: $(ENGINE_SRC)/crc32.c $(ENGINE_INC)/crc32.h
 
-$(OBJ)/buildres.$(res): $(SRC)/misc/buildres.rc $(INC)/startwin.editor.h
-$(OBJ)/startwin.editor.$o: $(SRC)/startwin.editor.c $(INC)/build.h $(INC)/editor.h $(INC)/winlayer.h $(INC)/compat.h $(INC)/startwin.editor.h
-$(OBJ)/startgtk.editor.$o: $(SRC)/startgtk.editor.c $(INC)/baselayer.h $(INC)/build.h $(INC)/editor.h $(INC)/compat.h
+$(ENGINE_OBJ)/lunatic.$o: $(ENGINE_SRC)/lunatic.c $(ENGINE_INC)/lunatic.h $(ENGINE_INC)/cache1d.h $(ENGINE_INC)/osd.h
 
-$(OBJ)/build_icon.$o: $(RSRC)/build_icon.c
+$(ENGINE_OBJ)/buildres.$(res): $(ENGINE_SRC)/misc/buildres.rc $(ENGINE_INC)/startwin.editor.h
+$(ENGINE_OBJ)/startwin.editor.$o: $(ENGINE_SRC)/startwin.editor.c $(ENGINE_INC)/build.h $(ENGINE_INC)/editor.h $(ENGINE_INC)/winlayer.h $(ENGINE_INC)/compat.h $(ENGINE_INC)/startwin.editor.h
+$(ENGINE_OBJ)/startgtk.editor.$o: $(ENGINE_SRC)/startgtk.editor.c $(ENGINE_INC)/baselayer.h $(ENGINE_INC)/build.h $(ENGINE_INC)/editor.h $(ENGINE_INC)/compat.h
 
-$(OBJ)/kextract.$o: $(SRC)/util/kextract.c $(INC)/compat.h
-$(OBJ)/kgroup.$o: $(SRC)/util/kgroup.c $(INC)/compat.h
-$(OBJ)/transpal.$o: $(SRC)/util/transpal.c $(INC)/compat.h $(INC)/pragmas.h
-$(OBJ)/wad2art.$o: $(SRC)/util/wad2art.c $(INC)/compat.h $(INC)/pragmas.h
-$(OBJ)/wad2map.$o: $(SRC)/util/wad2map.c $(INC)/compat.h $(INC)/pragmas.h
-$(OBJ)/generateicon.$o: $(SRC)/util/generateicon.c
-$(OBJ)/cacheinfo.$o: $(SRC)/util/cacheinfo.c $(INC)/compat.h
+$(ENGINE_OBJ)/build_icon.$o: $(DUKE3D_RSRC)/build_icon.c
+
+$(ENGINE_OBJ)/compat_tools.$o: $(ENGINE_SRC)/util/compat_tools.c
+$(ENGINE_OBJ)/kextract.$o: $(ENGINE_SRC)/util/kextract.c $(ENGINE_INC)/compat.h
+$(ENGINE_OBJ)/kgroup.$o: $(ENGINE_SRC)/util/kgroup.c $(ENGINE_INC)/compat.h
+$(ENGINE_OBJ)/transpal.$o: $(ENGINE_SRC)/util/transpal.c $(ENGINE_INC)/compat.h $(ENGINE_INC)/pragmas.h
+$(ENGINE_OBJ)/wad2art.$o: $(ENGINE_SRC)/util/wad2art.c $(ENGINE_INC)/compat.h $(ENGINE_INC)/pragmas.h
+$(ENGINE_OBJ)/wad2map.$o: $(ENGINE_SRC)/util/wad2map.c $(ENGINE_INC)/compat.h $(ENGINE_INC)/pragmas.h
+$(ENGINE_OBJ)/kmd2tool.$o: $(ENGINE_SRC)/util/kmd2tool.c $(ENGINE_INC)/compat.h
+$(ENGINE_OBJ)/md2tool.$o: $(ENGINE_SRC)/util/md2tool.c $(ENGINE_INC)/compat.h $(ENGINE_INC)/build.h $(ENGINE_INC)/glbuild.h $(ENGINE_INC)/mdsprite.h
+$(ENGINE_OBJ)/generateicon.$o: $(ENGINE_SRC)/util/generateicon.c $(ENGINE_INC)/kplib.h $(ENGINE_INC)/compat.h
+$(ENGINE_OBJ)/cacheinfo.$o: $(ENGINE_SRC)/util/cacheinfo.c $(ENGINE_INC)/compat.h
+$(ENGINE_OBJ)/enumdisplay.$o: $(ENGINE_SRC)/misc/enumdisplay.c $(ENGINE_INC)/compat.h
+$(ENGINE_OBJ)/getdxdidf.$o: $(ENGINE_SRC)/misc/getdxdidf.c $(ENGINE_INC)/compat.h
+$(ENGINE_OBJ)/makesdlkeytrans.$o: $(ENGINE_SRC)/misc/makesdlkeytrans.c
+$(ENGINE_OBJ)/arttool.$o: $(ENGINE_SRC)/util/arttool.cc
+$(ENGINE_OBJ)/givedepth.$o: $(ENGINE_SRC)/util/givedepth.c
+$(ENGINE_OBJ)/mkpalette.$o: $(ENGINE_SRC)/util/mkpalette.c
+$(ENGINE_OBJ)/unpackssi.$o: $(ENGINE_SRC)/util/unpackssi.c
+$(ENGINE_OBJ)/bsuite.$o: $(ENGINE_SRC)/util/bsuite.c

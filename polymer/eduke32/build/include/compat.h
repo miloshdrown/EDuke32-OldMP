@@ -471,6 +471,14 @@ int Bfilelength(int fd);
 char *Bstrtoken(char *s, char *delim, char **ptrptr, int chop);
 int Bwildmatch (const char *i, const char *j);
 
+// Copy min(strlen(src)+1, n) characters into dst, always terminate with a NUL.
+static inline char *Bstrncpyz(char *dst, const char *src, bsize_t n)
+{
+    Bstrncpy(dst, src, n);
+    dst[n-1] = 0;
+    return dst;
+}
+
 #if !defined(_WIN32)
 char *Bstrlwr(char *);
 char *Bstrupr(char *);

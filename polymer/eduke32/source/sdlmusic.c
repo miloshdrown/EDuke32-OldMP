@@ -70,7 +70,7 @@ static Mix_Music *music_musicchunk = NULL;
 
 static void setErrorMessage(const char *msg)
 {
-    strncpy(errorMessage, msg, sizeof(errorMessage));
+    Bstrncpyz(errorMessage, msg, sizeof(errorMessage));
 }
 
 // The music functions...

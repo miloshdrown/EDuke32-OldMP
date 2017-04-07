@@ -886,12 +886,12 @@ void getpackets(void)
 
                 if (packbuf[2] != (char)atoi(s_buildDate))
                 {
-                    initprintf("Player %d has version %d, expecting %d\n",packbuf[2],(char)atoi(s_buildDate));
+                    initprintf("Player has version %d, expecting %d\n",packbuf[2],(char)atoi(s_buildDate));
                     G_GameExit("You cannot play with different versions of EDuke32!");
                 }
-                if (packbuf[3] != BYTEVERSION)
+                if (packbuf[3] != (char)BYTEVERSION)
                 {
-                    initprintf("Player %d has version %d, expecting %d\n",packbuf[3],BYTEVERSION);
+                    initprintf("Player has version %d, expecting %d (%d, %d, %d)\n",packbuf[3],BYTEVERSION, BYTEVERSION_JF, PLUTOPAK, VOLUMEONE);
                     G_GameExit("You cannot play Duke with different versions!");
                 }
                 if (packbuf[4] > g_numSyncBytes)
